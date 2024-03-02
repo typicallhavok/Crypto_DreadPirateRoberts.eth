@@ -1,11 +1,9 @@
 import { useLocation } from "react-router-dom";
 // import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import "./Visual.css";
 
 const Visual = () => {
     const location = useLocation();
-    // const navigate = useNavigate();
 
     const txData=location.state.txData;
     console.log(txData)
@@ -37,7 +35,7 @@ const Visual = () => {
                     ))}
                 </div>
                 <div className="txOutputs">
-                <h2>Output Addreses</h2>
+                <h2 className="out">Output Addreses</h2>
                     {outputs.map((output, index) => (
                     <span className="eachTx" key={index}>{output}</span>
                     ))}
