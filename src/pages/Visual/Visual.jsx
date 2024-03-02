@@ -1,33 +1,37 @@
-import { useLocation } from "react-router-dom";
-import React, { useState } from "react";
-import "./Visual.css";
+import React, { useEffect } from 'react';
 
-const Visual = () => {
-    const location = useLocation();
-    const txData=location.state.txData;
-    console.log(txData)
-    const inputs = txData.inputs.map(input => input.prev_out.addr);
-    const outputs = txData.out.map(output => output.addr);
+const MyComponent = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const apiUrl = 'https://api.chainabuse.com/v0/reports?address=a&includePrivate=false&page=1&perPage=50';
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          authorization: 'Basic Y2FfV2toMVJHTlRkMjB4WW1wTVIwNXNWRXBQVUhac1JISldMbkp2ZWpsT2JHTnFOUzlWVVhaYVYxQldUMkkyV21jOVBROmNhX1draDFSR05UZDIweFltcE1SMDVzVkVwUFVIWnNSSEpXTG5KdmVqbE9iR05xTlM5VlVYWmFWMUJXVDJJMldtYzlQUQ=='
+        } 
+      };
 
-    // Calculate total amount sent
-    const totalAmountSent = txData.out.reduce((total, output) => {
-        return total + output.value;
-    }, 0) / 100000000; // Convert satoshi to BTC
+      try {
+        const response = await fetch(apiUrl, options);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-    // Log transaction details
-    console.log("Sender Address:", inputs);
-    console.log("Receiver Address:", outputs);
-    console.log("Amount Sent (BTC):", totalAmountSent);
-    console.log("Transaction Data:", txData);
-    return(
-        <>
-        {txData.hash}
-        </>
-    )
-}
+    fetchData();
+  }, []);
 
+  return (
+    <div>
+      {/* You can add your JSX here */}
+    </div>
+  );
+};
 
-
-
-
-export default Visual;
+export default MyComponent;
