@@ -2,4 +2,42 @@
 
 .txDets {
     display : flex;
+    justify-content: center;
+}
+
+.txInputs, .txOutputs {
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    text-align: center;
+    justify-content: center;
+}
+
+.eachTx {
+    padding:.5em 1em;
+    margin:1em;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255,.5);
+}
+
+button {
+    width: fit-content;
+    border:none;
+    padding: .5em;
+    margin-left: 70em;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+button:hover {
+    background-color: #f6f8fa21;
+    color: white;
+}
+
+.container1 {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
 }

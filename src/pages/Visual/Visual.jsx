@@ -1,35 +1,51 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useLocation } from "react-router-dom";
+// import React, { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+import "./Visual.css";
 
-const MyComponent = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const Visual = () => {
+    const location = useLocation();
+    // const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://127.0.0.1:5000/getCoinData/a'); 
-        setData(response.data);
-        console.log(response)
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
+    const txData=location.state.txData;
+    console.log(txData)
+    const inputs = txData.inputs.map(input => input.prev_out.addr);
+    const outputs = txData.out.map(output => output.addr);
+    const redirectToVisual = () => {
+        window.location.href=`https://oxt.me/transaction/${txData.hash}`;
     };
+    const totalAmountSent = txData.out.reduce((total, output) => {
+        return total + output.value;
+    }, 0) / 100000000; 
 
-    fetchData();
-  }, []);
+    console.log("Sender Address:", inputs);
+    console.log("Receiver Address:", outputs);
+    console.log("Amount Sent (BTC):", totalAmountSent);
+    console.log("Transaction Data:", txData);
+    return(
+        <>
+        <h1>Transactions</h1>
+        <div className="container1">
+            <button onClick={redirectToVisual}>View transaction flow</button>
+            <div className="txDets">
+                <div className="txInputs">
+                    {inputs.map((input, index) => (
+                    <span onClick="" className="eachTx" key={index}>{input}</span>
+                    ))}
+                </div>
+                <div className="txOutputs">
+                    {outputs.map((output, index) => (
+                    <span className="eachTx" key={index}>{output}</span>
+                    ))}
+                </div>
+            </div>
+        </div>
+        </>
+    )
+}
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
 
-  return (
-    <div>
-      <h1>{data.message}</h1>
-    </div>
-  );
-};
 
-export default MyComponent;
+
+
+export default Visual;
