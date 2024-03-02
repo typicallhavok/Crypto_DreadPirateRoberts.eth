@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
     // const [error, setError] = useState(null);
     const [searchFor, setInputValue] = useState("");
+    const [searchType,setType] = useState("");
     // const navigate = useNavigate();
 
     const handleInputChange = (e) => {
@@ -54,7 +55,7 @@ getTransactionDetails(txHash);
                 <div className="head">
                     <h2>Welcome to CrypView</h2>
                 </div>
-                <form id="search">
+                <form onSubmit={handleSubmit} id="search">
                     <div className="search">
                         <input
                             type="text"
