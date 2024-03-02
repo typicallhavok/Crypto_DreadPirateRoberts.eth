@@ -43,11 +43,8 @@ const Home = () => {
             // Handle errors
             console.error('Error fetching transaction data:', error);
         });
-}
-
-// Example usage:
-const txHash = "e8b406091959700dbffcff30a60b190133721e5c39e89bb5fe23c5a554ab05ea"; // Replace this with the hash of the transaction you want to query
-getTransactionDetails(txHash);
+    }
+    const txHash = "e8b406091959700dbffcff30a60b190133721e5c39e89bb5fe23c5a554ab05ea"; // Replace this with the hash of the transaction you want to query
 
     return (
         <>
@@ -55,7 +52,7 @@ getTransactionDetails(txHash);
                 <div className="head">
                     <h2>Welcome to CrypView</h2>
                 </div>
-                <form onSubmit={handleSubmit} id="search">
+                <form onSubmit={getTransactionDetails(searchFor)} id="search">
                     <div className="search">
                         <input
                             type="text"
