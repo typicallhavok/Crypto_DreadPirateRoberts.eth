@@ -31,6 +31,10 @@ button {
     background-color: rgb(255, 255, 255);
 }
 
+button:active {
+    background-color: var(--color-bg-active);
+}
+
 button:hover {
     background-color: #f6f8fa21;
     color: white;
@@ -53,6 +57,14 @@ button:hover {
     flex-direction: row;
     justify-content: space-around;
     margin: 1.5em 25em;
+}
+
+.exch {
+    background-color: orangered;
+    width: max-content;
+    padding: .2em;
+    margin: .1em;
+    border-radius: 12px;
 }
 
 
