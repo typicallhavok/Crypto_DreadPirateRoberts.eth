@@ -11,6 +11,7 @@
 }
 
 h1 {
+    margin-top: 1em;
     text-align: center;
     justify-content: center;
 }
@@ -19,14 +20,13 @@ h1 {
     padding:.5em 1em;
     margin:1em;
     border-radius: 10px;
-    background-color: rgb(255, 255, 255,.5);
+    background-color: rgb(255, 255, 255,.3);
 }
 
 button {
-    width: fit-content;
+    width: max-content;
     border:none;
     padding: .5em;
-    margin-left: 70em;
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
 }
@@ -40,4 +40,22 @@ button:hover {
     justify-content: center;
     display: flex;
     flex-direction: column;
+}
+
+.sus {
+    width: fit-content;
+    background-color: #EF5350;
+    padding: 0.7em;
+}
+
+.track {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 1.5em 25em;
+}
+
+
+h2 {
+    margin-left:3em;
 }
