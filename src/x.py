@@ -14,7 +14,7 @@ def get_data():
 
     headers = {
         "accept": "application/json",
-        "authorization": "Basic Y2FfWm5aMVQxbGhkbFpTUkdWU1RqZEJPRlU0YldSMVowOU1Ma0ZpVFdSdU5IZEhjRXR6VGl0MmVHcFllRkpRU0VFOVBROmNhX1puWjFUMWxoZGxaU1JHVlNUamRCT0ZVNGJXUjFaMDlNTGtGaVRXUnVOSGRIY0V0elRpdDJlR3BZZUZKUVNFRTlQUQ=="
+        "authorization": "Basic <redacted>"
     }
 
     response = requests.get(url, headers=headers)

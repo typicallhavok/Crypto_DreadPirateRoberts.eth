@@ -8,8 +8,9 @@ const Visual1 = () => {
     console.log(wallet);
     return (
         <>
-        
-        
+        <div className="walletAddr">{wallet.addr}</div>
+        <div className="walletAddr">{wallet.inputs}</div>
+        <div className="walletAddr">{wallet.prev_inputs}</div>
         </>
     )
 

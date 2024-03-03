@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./Home.css";
 import searchImg from "./Search.png";
-import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -22,8 +21,13 @@ const Home = () => {
 
     const getWalletDetails = async (walletAddr) => {
         try {
-            const response = await axios.get(`https://blockchain.info/rawaddr/${walletAddr}`);
-            const data = response.data;
+            const response = await fetch(`https://blockchain.info/rawaddr/${walletAddr}`);
+            
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            
+            const data = await response.json();
             navigate(`/Visual1/${data.address}`, {
                 state: { walletData: data },
             });
@@ -31,26 +35,60 @@ const Home = () => {
             setError(error.message);
         }
     };
-    
 
-    const getTransactionDetails = async (txHash) =>{
-        try {
-            const response = await fetch(`https://blockchain.info/rawtx/${txHash}`);
-            const data = await response.json();
-            navigate(`/Visual/${data.hash}`, {
-                state: { txData: data },
-            });
-        } catch (error) {
-            setError(error.message);
+    const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          authorization: 'Basic <redacted>'
         }
     };
+    
+    const fetchData = async (walletAddr) => {
+        try {
+          const response = await fetch(`https://api.chainabuse.com/v0/reports?address=${walletAddr}&includePrivate=false&page=1&perPage=50`,options);
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const responseData = await response.json();
+        //   console.log(responseData);
+        } catch (error) {
+          setError(error);
+        } finally {
+          return null;
+        }
+    };
+
+    const getTransactionDetails = async (txHash) =>{
+        if(!txHash.startsWith( "0x" )){
+            try {
+                const response = await fetch(`https://blockchain.info/rawtx/${txHash}`);
+                const data = await response.json();
+                navigate(`/Visual/${data.hash}`, {
+                    state: { txData: data },
+                });
+            } catch (error) {
+                setError(error.message);
+            }
+        } else {
+            try {
+                const fetchUrl = `https://api.etherscan.io/api?module=account&action=txlist&address=${txHash}&startblock=0&endblock=2702578&page=1&offset=10&sort=asc&apikey=<redacted>`;
+                const response = await fetch(fetchUrl);
+                const data = await response.json();
+                navigate(`/Visual/${data.hash}`, {
+                    state: { txData: data },
+                });
+            } catch (error) {
+                setError(error.message);
+            }
+        }};
     
 
     return (
         <>
             <div className="container">
                 <div className="head">
-                    <h2>Welcome to CrypView</h2>
+                    <h2>Welcome to CryptoView</h2>
                 </div>
                 <form onSubmit={(e) => {
                     e.preventDefault();
@@ -61,7 +99,7 @@ const Home = () => {
                         <input
                             type="text"
                             className="searchFor"
-                            placeholder="Enter a transaction hash or wallet address to check all transactions"
+                            placeholder="Enter a transaction hash to check all transactions"
                             value={searchFor}
                             onChange={handleInputChange}
                             required

@@ -8,6 +8,8 @@
 .txInputs, .txOutputs {
     display: flex;
     flex-direction: column;
+    border-top: white 2px solid;
+    padding:1em;
 }
 
 h1 {
@@ -44,6 +46,10 @@ button:hover {
     justify-content: center;
     display: flex;
     flex-direction: column;
+    background-color: black;
+    width: max-content;
+    margin:auto;
+    padding: 1em 3em;
 }
 
 .sus {
@@ -56,7 +62,8 @@ button:hover {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin: 1.5em 25em;
+    margin: .5em;
+    padding:1em .5em 2em .5em;
 }
 
 .exch {
@@ -69,5 +76,5 @@ button:hover {
 
 
 .out {
-    margin-left:3em;
+    margin-left:4em;
 }
